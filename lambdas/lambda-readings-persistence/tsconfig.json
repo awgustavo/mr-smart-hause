@@ -1,0 +1,32 @@
+{
+    "extends": "tsconfig/nodejs.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "outDir": "build",
+        "rootDir": "./src",
+        "paths": {
+            "@infrastructure/*": [
+                "./src/infrastructure/*"
+            ],
+            "@application/*": [
+                "./src/application/*"
+            ]
+        },
+        "sourceMap": true,
+        "plugins": [
+            {
+                "transform": "ts-auto-mock/transformer",
+                "cacheBetweenTests": false
+            }
+        ]
+    },
+    "include": [
+        "./src/**/*.ts"
+    ],
+    "exclude": [
+        "./build",
+        "./node_modules",
+        "./jest.config.js",
+        ".eslintrc.js"
+    ]
+}

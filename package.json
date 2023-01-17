@@ -1,0 +1,26 @@
+{
+  "name": "mr-smart-house",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "lambdas/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "husky": "^8.0.3",
+    "prettier": "latest",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "packageManager": "npm@8.19.2"
+}

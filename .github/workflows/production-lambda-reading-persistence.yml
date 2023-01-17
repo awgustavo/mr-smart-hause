@@ -1,0 +1,42 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Production Readings Persistence
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+    - 'lambdas/lambda-readings-persistence/**'
+jobs:
+  build-production-lambda-readings-persistence:
+    name: Production Readings Persistence
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Intalling Dependencies
+      run: npm i
+    - name: Running tests
+      run: npm test
+    - name: Building 
+      run: npm run build
+    - name: Configure AWS Credentials  
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1 
+    - name: Deploy AWS
+      run: |
+          zip -j deployment.zip ./lambdas/lambda-readings-persistence/build/*
+          aws lambda update-function-code --function-name=smart-house-readings-persistence --zip-file=fileb://deployment.zip 

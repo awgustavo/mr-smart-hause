@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "types": [
+        "jest",
+        "node"
+      ],
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "esModuleInterop": true,
+      "baseUrl": ".",
+      "outDir": "build",
+      "rootDir": ".",
+      "sourceMap": true,
+      "plugins": [
+        {
+          "transform": "ts-auto-mock/transformer",
+          "cacheBetweenTests": false
+        }
+      ]
+    },
+    "exclude": [
+      "node_modules"
+    ]
+  }
