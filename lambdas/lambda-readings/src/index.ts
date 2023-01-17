@@ -8,7 +8,7 @@ export const handler = async (event: APIGatewayEvent, context: Context) => {
         console.log(`Function started(Readings): ${ context.awsRequestId }`)
         const payload = JSON.parse(event.body || '{}')
         await ReadingModule.service.sendReading(payload as ReadingDTO)
-        console.log('Message sent.')
+        console.log('Message has been sent.')
         return {
             statusCode: 200,
             body: JSON.stringify(payload)

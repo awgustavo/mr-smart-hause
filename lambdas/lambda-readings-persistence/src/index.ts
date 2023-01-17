@@ -19,7 +19,7 @@ export const handler = async (event: SQSEvent, context: Context) => {
         const { body } = record
         runReadingsPersistence(body)
             .then(() => {
-                console.log('Data was saved')
+                console.log('Data saved')
                 resolve({
                     statusCode: 200,
                     body: JSON.stringify({})
