@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-nest
+  labels:
+    app: api-nest
+spec:
+  selector:
+    matchLabels:
+      app: api-nest
+  template:
+    metadata:
+      labels:
+        app: api-nest
+    spec:
+      containers:
+        - name: api-nest
+          image: api-nest-image
+          ports:
+            - containerPort: 3000

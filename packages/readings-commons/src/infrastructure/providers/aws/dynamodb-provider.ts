@@ -1,26 +1,25 @@
 
 import { IDatabaseRepository } from '../../../shared/interfaces/idatabase-repository'
 import * as AWS from 'aws-sdk'
+import { CustomError } from '../../../shared/errors/custom.error'
 
 export class DynamoDBProvider<TEntity> implements IDatabaseRepository<TEntity> {
-    private ddb: AWS.DynamoDB.DocumentClient
+   
+
+    constructor(private ddb: AWS.DynamoDB.DocumentClient = new AWS.DynamoDB.DocumentClient({ region: 'us-east-1' })) {
+      
+    }
 
     public async save(object: TEntity, tableName: string):Promise<TEntity> {
         try {
-            console.log('Start Dynamo')
-            this.ddb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-1' })
             const item = this.parseItem(object, tableName)
-            console.log('item', item)
             const result = await this.ddb.put(item).promise()
-            console.log('result', result)
-            return object
+            return result as TEntity
         }
         catch (error) {
             console.log('error', error)
+            throw new CustomError('DynamoError', error.message, error.stack)
         }
-        console.log('finally')
-
-
     }
 
     public parseItem(entity: TEntity, tableName: string): AWS.DynamoDB.DocumentClient.PutItemInput {

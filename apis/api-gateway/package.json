@@ -1,0 +1,36 @@
+{
+  "name": "api-gateway-dd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "DD_ENV=staging DD_LOGS_INJECTION=true ts-node-dev -r tsconfig-paths/register ./src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.3.1",
+    "dd-trace": "^3.12.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.109",
+    "@types/jest": "^29.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "esbuild": "^0.16.13",
+    "eslint": "^8.25.0",
+    "eslint-config-custom": "*",
+    "husky": "^8.0.3",
+    "jest": "^29.2.1",
+    "jest-config": "*",
+    "jest-ts-auto-mock": "^2.1.0",
+    "ts-auto-mock": "^3.6.2",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.8.4"
+  }
+}

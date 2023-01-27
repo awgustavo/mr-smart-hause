@@ -11,3 +11,6 @@ export * from './infrastructure/providers/aws/sqs-provider'
 //INTERFACES
 export * from './shared/interfaces/idatabase-repository'
 export * from './shared/interfaces/imessage-broker'
+export * from './shared/interfaces/ibase-repository'
+export * from './shared/interfaces/ibase-service'
+export * from './shared/interfaces/ibase-module'

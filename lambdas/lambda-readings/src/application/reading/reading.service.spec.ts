@@ -5,7 +5,7 @@ import { ReadingService } from './reading.service'
 describe('given the readings service', () => {
 
     it('should validate the reading', () => {
-        const isReadingValid = new ReadingService(new SQSProvider()).isReadingValid({
+        const isReadingValid = new ReadingService(new SQSProvider()).isValid({
             tag: 'XPTO',
             value: 12.3,
             timestamp: new Date(2022, 10, 10),

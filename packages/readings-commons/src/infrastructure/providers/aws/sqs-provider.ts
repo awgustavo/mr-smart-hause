@@ -5,22 +5,20 @@ import { CustomError } from '../../../shared/errors/custom.error'
 
 
 export class SQSProvider<TMessageType> implements IMessageBroker<TMessageType> {
-    private sqs:AWS.SQS
-    constructor() {
-        this.sqs = new AWS.SQS({ apiVersion: '2012-11-05', region: 'us-east-1' })
+
+    constructor(private sqs = new AWS.SQS({ apiVersion: '2012-11-05', region: 'us-east-1' })) {}
+
+    public async sendMessage(message: TMessageType, sqsURL:string): Promise<TMessageType> {
+        try {
+            const data = await this.sqs.sendMessage(this.parseMessage(message, sqsURL)).promise()
+            return data as TMessageType
+        }
+        catch (error) {
+            throw new CustomError('SQS-ERROR', `Reported error was: ${error.message}`, error.stack)
+        }
     }
 
-    public async sendMessage(message: TMessageType, sqsURL:string) {
-        return new Promise((resolve, reject) => {
-            this.sqs.sendMessage(this.parseMessage(message, sqsURL), 
-                (error: AWS.AWSError, data: AWS.SQS.SendMessageResult) => {
-                    if (error) reject(new CustomError('SQS-ERROR', `Reported error was: ${error.message}`, error.stack))
-                    resolve(data)        
-                })
-        })
-    }
-
-    private parseMessage(message: TMessageType, sqsURL: string): AWS.SQS.SendMessageRequest {
+    public parseMessage(message: TMessageType, sqsURL: string): AWS.SQS.SendMessageRequest {
         return {
             DelaySeconds: 0,
             MessageBody: JSON.stringify(message),

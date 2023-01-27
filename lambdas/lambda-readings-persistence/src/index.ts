@@ -6,9 +6,7 @@ import { ReadingDTO } from 'readings-commons'
 
 const runReadingsPersistence = async (body) => {
     const payload = JSON.parse(body || '{}')
-    console.log('payload', payload)
     const result = await ReadingModule.service.saveReading(payload as ReadingDTO)
-    console.log('result', result)
     return result
 }
 
