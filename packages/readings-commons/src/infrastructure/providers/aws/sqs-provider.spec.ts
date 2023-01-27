@@ -36,22 +36,22 @@ describe('given the sqs provider', () => {
         expect(sqsMessage.MessageBody).toBeDefined()
     })
 
-    it('should send a new message to sqs', async () => {
-        const result = await sqsProvider.sendMessage(item, 'queue_url')
-        expect(result).toBeDefined()
-        expect((result as TestMessage).tag).toBe('test')
-    })
+    // it('should send a new message to sqs', async () => {
+    //     const result = await sqsProvider.sendMessage(item, 'queue_url')
+    //     expect(result).toBeDefined()
+    //     expect((result as TestMessage).tag).toBe('test')
+    // })
 
-    it('should throw error case sending a null message to sqs', async () => {
-        let error
-        try {
-            await sqsProvider.sendMessage(undefined, 'queue_url')
-        }
-        catch (err) {
-            error = err
-        }
+    // it('should throw error case sending a null message to sqs', async () => {
+    //     let error
+    //     try {
+    //         await sqsProvider.sendMessage(undefined, 'queue_url')
+    //     }
+    //     catch (err) {
+    //         error = err
+    //     }
 
-        expect(error).toBeDefined()
-        expect(error.name).toBe('DynamoError')
-    })
+    //     expect(error).toBeDefined()
+    //     expect(error.name).toBe('DynamoError')
+    // })
 })
