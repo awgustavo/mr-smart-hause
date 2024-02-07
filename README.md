@@ -1,4 +1,4 @@
-# Monorepo SmartHouse PoC
+# Monorepo SmartHause PoC
 
 This is an PoC(Proof of Concept) project using the following technologies:
  - **Typescript**
