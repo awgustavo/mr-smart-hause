@@ -37,12 +37,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/awgustavo/mr-smart-house.git"
+    "url": "git+https://github.com/awgustavo/mr-smart-hause.git"
   },
   "author": "andre",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/awgustavo/mr-smart-house/issues"
+    "url": "https://github.com/awgustavo/mr-smart-hause/issues"
   },
-  "homepage": "https://github.com/awgustavo/mr-smart-house#readme"
+  "homepage": "https://github.com/awgustavo/mr-smart-hause#readme"
 }

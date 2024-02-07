@@ -39,4 +39,4 @@ jobs:
     - name: Deploy AWS
       run: |
           zip -j deployment.zip ./lambdas/lambda-readings-persistence/build/*
-          aws lambda update-function-code --function-name=smart-house-readings-persistence --zip-file=fileb://deployment.zip 
+          aws lambda update-function-code --function-name=smart-hause-readings-persistence --zip-file=fileb://deployment.zip 

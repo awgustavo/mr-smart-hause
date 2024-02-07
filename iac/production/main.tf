@@ -10,8 +10,8 @@ output "account_id" {
 
 
 resource "aws_api_gateway_rest_api" "example" {
-  name        = "smart-house-readings-api"
-  description = "API for smart house readings"
+  name        = "smart-hause-readings-api"
+  description = "API for smart hause readings"
 }
 
 resource "aws_api_gateway_resource" "example" {
@@ -34,7 +34,7 @@ resource "aws_api_gateway_integration" "example" {
 
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
-  uri                     = "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${aws_lambda_function.smart-house-readings.arn}/invocations"
+  uri                     = "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${aws_lambda_function.smart-hause-readings.arn}/invocations"
 }
 
 resource "aws_api_gateway_deployment" "example" {
@@ -47,7 +47,7 @@ resource "aws_api_gateway_deployment" "example" {
 }
 
 resource "aws_iam_role" "lambda_exec" {
-  name = "smart-house-readings-lambda-exec"
+  name = "smart-hause-readings-lambda-exec"
 
   assume_role_policy = <<EOF
 {
@@ -66,7 +66,7 @@ EOF
 }
 
 resource "aws_iam_policy" "lambda_access_sqs" {
-  name = "smart-house-readings-sqs-access"
+  name = "smart-hause-readings-sqs-access"
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -86,10 +86,10 @@ resource "aws_iam_policy" "lambda_access_sqs" {
 EOF
 }
 
-resource "aws_lambda_function" "smart-house-readings" {
+resource "aws_lambda_function" "smart-hause-readings" {
   filename = "deploy.zip"
-  function_name = "smart-house-readings"
-  description   = "Processes smart house readings"
+  function_name = "smart-hause-readings"
+  description   = "Processes smart hause readings"
   handler       = "index.handler"
   runtime       = "nodejs16.x"
   role          = "${aws_iam_role.lambda_exec.arn}"
@@ -102,21 +102,21 @@ resource "aws_lambda_function" "smart-house-readings" {
 }
 
 resource "aws_sqs_queue" "readings" {
-  name = "smart-house-readings-queue"
+  name = "smart-hause-readings-queue"
 }
 
 resource "aws_lambda_permission" "allow_api_gateway" {
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.smart-house-readings.function_name
+  function_name = aws_lambda_function.smart-hause-readings.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.example.execution_arn}/*"
 }
 
 // second part of the flow
 
-resource "aws_lambda_function" "smart-house-readings-persistence" {
+resource "aws_lambda_function" "smart-hause-readings-persistence" {
   filename = "deploy.zip"
-  function_name = "smart-house-readings-persistence"
+  function_name = "smart-hause-readings-persistence"
   runtime = "nodejs16.x"
   role = aws_iam_role.iam_for_lambda.arn
   handler = "index.handler"
@@ -128,9 +128,9 @@ resource "aws_lambda_function" "smart-house-readings-persistence" {
   }
 }
 
-resource "aws_lambda_event_source_mapping" "smart-house-readings-queue" {
+resource "aws_lambda_event_source_mapping" "smart-hause-readings-queue" {
   event_source_arn = aws_sqs_queue.readings.arn
-  function_name = aws_lambda_function.smart-house-readings-persistence.function_name
+  function_name = aws_lambda_function.smart-hause-readings-persistence.function_name
 }
 
 resource "aws_iam_role" "iam_for_lambda" {
@@ -169,8 +169,8 @@ resource "aws_iam_role_policy" "iam_for_lambda_policy" {
         "sqs:GetQueueAttributes"
       ],
       "Resource": [
-        "arn:aws:dynamodb:us-east-1:${local.account_id}:table/smart-house-readings",
-        "arn:aws:sqs:us-east-1:${local.account_id}:smart-house-readings-queue"
+        "arn:aws:dynamodb:us-east-1:${local.account_id}:table/smart-hause-readings",
+        "arn:aws:sqs:us-east-1:${local.account_id}:smart-hause-readings-queue"
       ]
     }
   ]
@@ -178,8 +178,8 @@ resource "aws_iam_role_policy" "iam_for_lambda_policy" {
 EOF
 }
 
-resource "aws_dynamodb_table" "smart-house-readings" {
-  name           = "smart-house-readings"
+resource "aws_dynamodb_table" "smart-hause-readings" {
+  name           = "smart-hause-readings"
   hash_key       = "id"
   read_capacity  = 5
   write_capacity = 5
